@@ -20,6 +20,7 @@ public class SerialCommunication {
 
     static OutputStream output;
     static InputStream input;
+    static SerialPort port;
 
     public void initSerial(String portName, int dataRate) {
         try {
@@ -30,15 +31,15 @@ public class SerialCommunication {
                 npe.printStackTrace();
             }
 
-            SerialPort port = (SerialPort) portId.open("Título comunicação serial", dataRate);
+            port = (SerialPort) portId.open("Título comunicação serial", dataRate);
+
+            output = port.getOutputStream();
+            input = port.getInputStream();
 
             port.setSerialPortParams(9600,
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);
-
-            output = port.getOutputStream();
-            input = port.getInputStream();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,8 +48,12 @@ public class SerialCommunication {
 
     public void close() {
         try {
+            
             output.close();
             input.close();
+            port.removeEventListener();
+            port.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,10 +62,10 @@ public class SerialCommunication {
     public void writeData(int data) {
         try {
             output.write(data);
-            while (input.available() > 0) {
-                System.out.println((char) input.read());
-            }
 
+            while (input.available() > 0) {
+                System.out.println("Serial: " + (char) (input.read()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,12 +13,32 @@ class Object {
     Boolean isPwn = false
     
     enum TypeInOrOut{        
-        INPUT, 
-        OUTPUT
+        INPUT(0), 
+        OUTPUT(1)
+        
+        private int type
+        
+        TypeInOrOut(int type){
+            this.type = type
+        }
+        
+        public int getType(){
+            return type
+        }
     }
     enum TypeAnalogOrDigital{
-        ANALOG,
-        DIGITAL
+        ANALOG(0),
+        DIGITAL(1)
+        
+        private int type
+        
+        TypeAnalogOrDigital(int type){
+            this.type = type
+        }
+        
+        public int getType(){
+            return type
+        }
     }
     
     static constraints = {

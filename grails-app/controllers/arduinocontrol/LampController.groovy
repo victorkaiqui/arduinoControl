@@ -10,25 +10,71 @@ class LampController {
 
     def status(Long id) {
         
-        def lampInstance = Lamp.get(id)
+        Lamp lampInstance = Lamp.get(id)
         
+        String dice = ""
         
-        if (lampInstance) {
-            if(lampInstance.status){
-                lampInstance.status = false
-                sc.writeData(0)
-                lampInstance.save(flush:true)
-                print "Desligado"
-            }else{
-                lampInstance.status = true
-                sc.writeData(1)                
-                lampInstance.save(flush:true)
-                print "ligado"
-            }
+        //port analog
+        if(lampInstance.typeAnalogOrDigital.getType() == 0){
+            String s = "1" 
+            s += lampInstance.port
+            dice += complete(s , 3)
+        }
+        // port digital
+        else if(lampInstance.typeAnalogOrDigital.getType() == 1){
+            dice += complete(lampInstance.port , 3)
         }
         
+        //input
+        if(lampInstance.typeInOrOut.getType() == 0){
+            dice += "0"
+        }
+        //output
+        else if(lampInstance.typeInOrOut.getType() == 1){
+            dice += "1"
+        }        
+
+        //pwn
+        dice += "000"
+        
+        if(lampInstance.status){
+            lampInstance.status = false
+            dice += "0"
+            lampInstance.save(flush:true)
+            print "Desligado"
+        }else{
+            lampInstance.status = true
+            dice += "1"               
+            lampInstance.save(flush:true)
+            print "ligado"
+        }
+         
+        dice += "00";
+        
+        for(int i = 0 ; i < 10 ; i++){
+            sc.writeData(Integer.valueOf(dice))
+        }
+           
         redirect(action: "index")
     }  
+    
+    def complete(String s, int i){        
+        
+        String newString = ""
+        
+        if(s.length() < i){
+            int aux = i - s.length()            
+            while(aux != 0){
+                newString += "0"
+                aux--
+            }            
+            newString += s            
+        }else if(s.length() == i){
+            return s
+        }
+        
+        return newString
+    }
     
     def initSerial() {
         Config c = Config.findByEnabled(true)
