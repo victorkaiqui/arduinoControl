@@ -14,27 +14,20 @@ class LampController {
         
         String dice = ""
         
-        //port analog
         if(lampInstance.typeAnalogOrDigital.getType() == 0){
             String s = "1" 
             s += lampInstance.port
             dice += complete(s , 3)
-        }
-        // port digital
-        else if(lampInstance.typeAnalogOrDigital.getType() == 1){
+        } else if(lampInstance.typeAnalogOrDigital.getType() == 1){
             dice += complete(lampInstance.port , 3)
-        }
+        }        
         
-        //input
         if(lampInstance.typeInOrOut.getType() == 0){
             dice += "0"
-        }
-        //output
-        else if(lampInstance.typeInOrOut.getType() == 1){
+        }          else if(lampInstance.typeInOrOut.getType() == 1){
             dice += "1"
-        }        
-
-        //pwn
+        }   
+       
         dice += "000"
         
         if(lampInstance.status){
@@ -49,12 +42,10 @@ class LampController {
             print "ligado"
         }
          
-        dice += "00";
-        
-        for(int i = 0 ; i < 10 ; i++){
-            sc.writeData(Integer.valueOf(dice))
-        }
-           
+        dice += "0\n";  
+       
+        sc.writeData(dice.getBytes())          
+                   
         redirect(action: "index")
     }  
     

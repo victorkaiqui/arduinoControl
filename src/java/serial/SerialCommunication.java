@@ -48,24 +48,20 @@ public class SerialCommunication {
 
     public void close() {
         try {
-            
+
             output.close();
             input.close();
             port.removeEventListener();
             port.close();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void writeData(int data) {
+    public void writeData(byte[] data) {
         try {
             output.write(data);
-
-            while (input.available() > 0) {
-                System.out.println("Serial: " + (char) (input.read()));
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
