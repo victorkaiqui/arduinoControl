@@ -8,13 +8,14 @@ class Object {
     String name
     String description
     String port
+    String configArduino
     TypeInOrOut typeInOrOut
     TypeAnalogOrDigital typeAnalogOrDigital
     Boolean isPwn = false
     
     enum TypeInOrOut{        
-        INPUT(0), 
-        OUTPUT(1)
+        INPUT(1), 
+        OUTPUT(0)
         
         private int type
         
@@ -27,8 +28,8 @@ class Object {
         }
     }
     enum TypeAnalogOrDigital{
-        ANALOG(0),
-        DIGITAL(1)
+        ANALOG(1),
+        DIGITAL(0)
         
         private int type
         

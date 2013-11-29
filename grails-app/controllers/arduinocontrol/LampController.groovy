@@ -1,53 +1,42 @@
 package arduinocontrol
 
 import org.springframework.dao.DataIntegrityViolationException
-import serial.SerialCommunication
 
 class LampController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    SerialCommunication sc = new SerialCommunication()
-
+    def methodsService
+    
+    
     def status(Long id) {
         
         Lamp lampInstance = Lamp.get(id)
         
-        String dice = ""
-        
-        if(lampInstance.typeAnalogOrDigital.getType() == 0){
-            String s = "1" 
-            s += lampInstance.port
-            dice += complete(s , 3)
-        } else if(lampInstance.typeAnalogOrDigital.getType() == 1){
-            dice += complete(lampInstance.port , 3)
-        }        
-        
-        if(lampInstance.typeInOrOut.getType() == 0){
-            dice += "0"
-        }          else if(lampInstance.typeInOrOut.getType() == 1){
-            dice += "1"
-        }   
-       
-        dice += "000"
         
         if(lampInstance.status){
             lampInstance.status = false
-            dice += "0"
-            lampInstance.save(flush:true)
-            print "Desligado"
+            lampInstance.configArduino = lampInstance.configArduino.replace(lampInstance.configArduino.substring(7,8),"0")
+                       
         }else{
             lampInstance.status = true
-            dice += "1"               
-            lampInstance.save(flush:true)
-            print "ligado"
+            lampInstance.configArduino = lampInstance.configArduino.replace(lampInstance.configArduino.substring(7,8),"1")
         }
-         
-        dice += "0\n";  
-       
+        
         sc.writeData(dice.getBytes())          
-                   
+       
+        lampInstance.save(flush:true)          
         redirect(action: "index")
     }  
+    
+    def initSerial() {
+        methodsService.initSerial()
+        redirect(action: "index")
+    }
+
+    def close() {       
+        methodsService.close()
+        redirect(action: "index")
+    }
     
     def complete(String s, int i){        
         
@@ -67,15 +56,46 @@ class LampController {
         return newString
     }
     
-    def initSerial() {
-        Config c = Config.findByEnabled(true)
-        sc.initSerial(c.port , c.rate.getRate())
-        redirect(action: "index")
-    }
-
-    def close() {       
-        sc.close()
-        redirect(action: "index")
+    def saveConfigArduino(Lamp lampInstance){
+        
+        String dice = ""
+        
+        if(lampInstance.typeAnalogOrDigital.getType() == 1){
+            //Analog
+            String s = "1" 
+            s += lampInstance.port
+            dice += complete(s , 3)
+        } else if(lampInstance.typeAnalogOrDigital.getType() == 0){
+            //Digital
+            dice += complete(lampInstance.port , 3)
+        }        
+        
+        if(lampInstance.typeInOrOut.getType() == 0){
+            //Output
+            dice += "0"
+        }else if(lampInstance.typeInOrOut.getType() == 1){
+            //Input
+            dice += "1"
+        }   
+       
+        //pwm
+        dice += "000"
+        
+        if(lampInstance.status){
+            lampInstance.status = false
+            //Off
+            dice += "0"            
+        }else{
+            lampInstance.status = true
+            //On
+            dice += "1"
+        }
+        
+        //metodo
+        dice += "01";  
+       
+        lampInstance.configArduino = dice
+        sc.writeData(dice.getBytes())   
     }
     
     def index() {
@@ -93,6 +113,8 @@ class LampController {
 
     def save() {
         def lampInstance = new Lamp(params)
+        saveConfigArduino(lampInstance)
+        
         if (!lampInstance.save(flush: true)) {
             render(view: "create", model: [lampInstance: lampInstance])
             return
@@ -102,6 +124,7 @@ class LampController {
         redirect(action: "show", id: lampInstance.id)
     }
 
+    
     def show(Long id) {
         def lampInstance = Lamp.get(id)
         if (!lampInstance) {
@@ -126,6 +149,8 @@ class LampController {
 
     def update(Long id, Long version) {
         def lampInstance = Lamp.get(id)
+        saveConfigArduino(lampInstance)
+        
         if (!lampInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'lamp.label', default: 'Lamp'), id])
             redirect(action: "list")
