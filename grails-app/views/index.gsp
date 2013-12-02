@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page import="service.MethodsService" %>
+<%def myService = grailsApplication.classLoader.loadClass('service.MethodsService').newInstance()%>
 <html>
     <head>
         <meta name="layout" content="main"/>
@@ -70,12 +72,15 @@
         <div id="page-body" role="main">
             <div id="controller-list" role="navigation">
                 <h2>Available Controllers:</h2>
-                <g:link action="initSerial" controller="lamp">initSerial</g:link>          
-                <g:link action="close" controller="lamp">close</g:link>
-                    <ul>
+                
+                ${myService.initSerial()}            
+
+                <ul>
                     <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-                        </g:each>
+                        <li class="controller">
+                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
+                            </li>
+                    </g:each>
                 </ul>
             </div>
         </div>

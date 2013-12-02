@@ -11,92 +11,29 @@ class LampController {
     def status(Long id) {
         
         Lamp lampInstance = Lamp.get(id)
-        
+        StringBuilder s = new StringBuilder(lampInstance.configArduino);
+        char a = '0'
+        char b = '1'
         
         if(lampInstance.status){
             lampInstance.status = false
-            lampInstance.configArduino = lampInstance.configArduino.replace(lampInstance.configArduino.substring(7,8),"0")
+            s.setCharAt(7,a)
                        
         }else{
             lampInstance.status = true
-            lampInstance.configArduino = lampInstance.configArduino.replace(lampInstance.configArduino.substring(7,8),"1")
+            s.setCharAt(7,b)
         }
         
-        sc.writeData(dice.getBytes())          
+        lampInstance.configArduino = s.toString()
+        
+        print lampInstance.configArduino
+        
+        methodsService.writeData(lampInstance.configArduino.getBytes())          
        
-        lampInstance.save(flush:true)          
+        lampInstance.save(flush:true) 
+        
         redirect(action: "index")
-    }  
-    
-    def initSerial() {
-        methodsService.initSerial()
-        redirect(action: "index")
-    }
-
-    def close() {       
-        methodsService.close()
-        redirect(action: "index")
-    }
-    
-    def complete(String s, int i){        
-        
-        String newString = ""
-        
-        if(s.length() < i){
-            int aux = i - s.length()            
-            while(aux != 0){
-                newString += "0"
-                aux--
-            }            
-            newString += s            
-        }else if(s.length() == i){
-            return s
-        }
-        
-        return newString
-    }
-    
-    def saveConfigArduino(Lamp lampInstance){
-        
-        String dice = ""
-        
-        if(lampInstance.typeAnalogOrDigital.getType() == 1){
-            //Analog
-            String s = "1" 
-            s += lampInstance.port
-            dice += complete(s , 3)
-        } else if(lampInstance.typeAnalogOrDigital.getType() == 0){
-            //Digital
-            dice += complete(lampInstance.port , 3)
-        }        
-        
-        if(lampInstance.typeInOrOut.getType() == 0){
-            //Output
-            dice += "0"
-        }else if(lampInstance.typeInOrOut.getType() == 1){
-            //Input
-            dice += "1"
-        }   
-       
-        //pwm
-        dice += "000"
-        
-        if(lampInstance.status){
-            lampInstance.status = false
-            //Off
-            dice += "0"            
-        }else{
-            lampInstance.status = true
-            //On
-            dice += "1"
-        }
-        
-        //metodo
-        dice += "01";  
-       
-        lampInstance.configArduino = dice
-        sc.writeData(dice.getBytes())   
-    }
+    } 
     
     def index() {
         redirect(action: "list", params: params)
@@ -113,7 +50,7 @@ class LampController {
 
     def save() {
         def lampInstance = new Lamp(params)
-        saveConfigArduino(lampInstance)
+        methodsService.saveParamsgArduino(lampInstance)
         
         if (!lampInstance.save(flush: true)) {
             render(view: "create", model: [lampInstance: lampInstance])
@@ -149,7 +86,7 @@ class LampController {
 
     def update(Long id, Long version) {
         def lampInstance = Lamp.get(id)
-        saveConfigArduino(lampInstance)
+        methodsService.saveParamsgArduino(lampInstance)
         
         if (!lampInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'lamp.label', default: 'Lamp'), id])

@@ -48,12 +48,10 @@ public class SerialCommunication {
 
     public void close() {
         try {
-
             output.close();
             input.close();
             port.removeEventListener();
             port.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
