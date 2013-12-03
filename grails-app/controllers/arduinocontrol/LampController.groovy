@@ -24,8 +24,15 @@ class LampController {
             s.setCharAt(7,b)
         }
         
-        lampInstance.configArduino = s.toString()
+        // Metodo
+        s.setCharAt(9,a)
         
+        // Tipo de alteração
+        s.setCharAt(9,a)
+        
+        lampInstance.configArduino =  s.toString()
+        lampInstance.configArduino += "\r\n"
+       
         print lampInstance.configArduino
         
         methodsService.writeData(lampInstance.configArduino.getBytes())          

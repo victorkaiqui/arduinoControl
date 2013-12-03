@@ -58,30 +58,27 @@ class MethodsService {
         }        
         
         if(lampInstance.typeInOrOut.getType() == 0){
-            //Output
+            //INPUT
             dice += "0"
         }else if(lampInstance.typeInOrOut.getType() == 1){
-            //Input
+            //OUTPUT
             dice += "1"
         }   
        
         //pwm
         dice += "000"
-        
-        if(lampInstance.status){
-            lampInstance.status = false
-            //Off
-            dice += "0"            
-        }else{
-            lampInstance.status = true
-            //On
-            dice += "1"
-        }
+
+        //Off
+        dice += "0" 
         
         //metodo
-        dice += "01";  
-       
+        dice += "0"
+        
+        // Tipo de alteração
+        dice += "1\r\n"       
+        
         lampInstance.configArduino = dice
+        
         sc.writeData(dice.getBytes())   
     }
 

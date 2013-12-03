@@ -2,10 +2,22 @@ package arduinocontrol
 
 import org.springframework.dao.DataIntegrityViolationException
 
+
 class ConfigController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def methodsService
 
+    def initSerial() {
+        methodsService.initSerial()
+        redirect(action: "index")
+    }
+
+    def closeSerial() {       
+        methodsService.closeSerial()
+        redirect(action: "index")
+    }
+    
     def index() {
         redirect(action: "list", params: params)
     }
@@ -63,7 +75,7 @@ class ConfigController {
         if (version != null) {
             if (configInstance.version > version) {
                 configInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'config.label', default: 'Config')] as Object[],
+                    [message(code: 'config.label', default: 'Config')] as Object[],
                           "Another user has updated this Config while you were editing")
                 render(view: "edit", model: [configInstance: configInstance])
                 return

@@ -14,8 +14,8 @@ class Object {
     Boolean isPwn = false
     
     enum TypeInOrOut{        
-        INPUT(1), 
-        OUTPUT(0)
+        INPUT(0), 
+        OUTPUT(1)
         
         private int type
         

@@ -73,7 +73,8 @@
             <div id="controller-list" role="navigation">
                 <h2>Available Controllers:</h2>
                 
-                ${myService.initSerial()}            
+                <g:link action="initSerial" controller="config">initSerial</g:link>          
+                <g:link action="closeSerial" controller="config">close</g:link>           
 
                 <ul>
                     <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">

@@ -59,7 +59,7 @@ public class SerialCommunication {
 
     public void writeData(byte[] data) {
         try {
-            output.write(data);
+            output.write(data);         
         } catch (IOException e) {
             e.printStackTrace();
         }
