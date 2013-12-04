@@ -67,6 +67,10 @@ class MethodsService {
         }
     }
     
+      
+    def readData() {
+    }
+    
     def complete(String s, int i){        
         
         String newString = ""
@@ -83,10 +87,7 @@ class MethodsService {
         }
         
         return newString
-    }
-    
-    def readData() {
-    }
+    }  
     
     def saveParamsgArduino (Lamp lampInstance){
         
@@ -95,11 +96,11 @@ class MethodsService {
         if(lampInstance.typeAnalogOrDigital.getType() == 1){
             //Analog
             String s = "1" 
-            s += lampInstance.port
+            s += lampInstance.pin
             dice += complete(s , 3)            
         } else if(lampInstance.typeAnalogOrDigital.getType() == 0){
             //Digital
-            dice += complete(lampInstance.port , 3)
+            dice += complete(String.valueOf(lampInstance.pin) , 3)
         }        
         
         if(lampInstance.typeInOrOut.getType() == 0){
@@ -129,7 +130,7 @@ class MethodsService {
         dice += "00\r\n"       
         
         
-        lampInstance.configArduino = dice
+        lampInstance.paramsArduino = dice
         
         writeData(dice.getBytes())   
     }

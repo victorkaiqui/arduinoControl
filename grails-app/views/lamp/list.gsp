@@ -16,13 +16,10 @@
 			</ul>
 		</div>
 		<div id="list-lamp" class="content scaffold-list" role="main">
-			
-                        <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			
-                        <g:if test="${flash.message}">
-                            <div class="message" role="status">${flash.message}</div>
+			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-                        
 			<table>
 				<thead>
 					<tr>
@@ -31,15 +28,13 @@
 					
 						<g:sortableColumn property="description" title="${message(code: 'lamp.description.label', default: 'Description')}" />
 					
-						<g:sortableColumn property="port" title="${message(code: 'lamp.port.label', default: 'Port')}" />
+						<g:sortableColumn property="pin" title="${message(code: 'lamp.pin.label', default: 'Pin')}" />
+					
+						<g:sortableColumn property="paramsArduino" title="${message(code: 'lamp.paramsArduino.label', default: 'Params Arduino')}" />
 					
 						<g:sortableColumn property="typeInOrOut" title="${message(code: 'lamp.typeInOrOut.label', default: 'Type In Or Out')}" />
 					
 						<g:sortableColumn property="typeAnalogOrDigital" title="${message(code: 'lamp.typeAnalogOrDigital.label', default: 'Type Analog Or Digital')}" />
-					
-						<g:sortableColumn property="isPwn" title="${message(code: 'lamp.isPwn.label', default: 'Is Pwn')}" />
-                                                
-                                                <g:sortableColumn property="status" title="${message(code: 'lamp.status.label', default: 'Status')}" />
 					
 					</tr>
 				</thead>
@@ -47,40 +42,18 @@
 				<g:each in="${lampInstanceList}" status="i" var="lampInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td>
-                                                    <g:link action="show" id="${lampInstance.id}">${fieldValue(bean: lampInstance, field: "name")}</g:link>
-                                                </td>
+						<td><g:link action="show" id="${lampInstance.id}">${fieldValue(bean: lampInstance, field: "name")}</g:link></td>
 					
-						<td>
-                                                    ${fieldValue(bean: lampInstance, field: "description")}
-                                                </td>
+						<td>${fieldValue(bean: lampInstance, field: "description")}</td>
 					
-						<td>
-                                                    ${fieldValue(bean: lampInstance, field: "port")}
-                                                </td>
+						<td>${fieldValue(bean: lampInstance, field: "pin")}</td>
 					
-						<td>
-                                                    ${fieldValue(bean: lampInstance, field: "typeInOrOut")}
-                                                </td>
+						<td>${fieldValue(bean: lampInstance, field: "paramsArduino")}</td>
 					
-						<td>
-                                                    ${fieldValue(bean: lampInstance, field: "typeAnalogOrDigital")}
-                                                </td>
+						<td>${fieldValue(bean: lampInstance, field: "typeInOrOut")}</td>
 					
-						<td>
-                                                    <g:formatBoolean boolean="${lampInstance.isPwn}" />
-                                                </td>
+						<td>${fieldValue(bean: lampInstance, field: "typeAnalogOrDigital")}</td>
 					
-                                                <td>
-                                                    <g:if test="${lampInstance.status}">
-                                                        <button type="button" class="btn btn-small btn-default" disabled="disabled">Ligada</button>
-                                                        <g:link action="status" id="${lampInstance.id}" class="btn btn-small btn-danger">Desligar</g:link>                                                           
-                                                    </g:if>
-                                                    <g:else>                              
-                                                        <button type="button" class="btn btn-small btn-default" disabled="disabled">Desligada</button> 
-                                                        <g:link action="status" id="${lampInstance.id}" class="btn btn-small btn-success">Ligar</g:link>    
-                                                    </g:else>  
-                                                </td>
 					</tr>
 				</g:each>
 				</tbody>

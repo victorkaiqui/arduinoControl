@@ -13,7 +13,7 @@ class LampController {
     def status(Long id) {
         
         Lamp lampInstance = Lamp.get(id)
-        StringBuilder s = new StringBuilder(lampInstance.configArduino);       
+        StringBuilder s = new StringBuilder(lampInstance.paramsArduino);       
         
         if(lampInstance.status){
             lampInstance.status = false
@@ -24,10 +24,10 @@ class LampController {
         }
              
         
-        lampInstance.configArduino =  s.toString()
-        lampInstance.configArduino += "\r\n"
+        lampInstance.paramsArduino =  s.toString()
+        lampInstance.paramsArduino += "\r\n"
         
-        methodsService.writeData(lampInstance.configArduino.getBytes())          
+        methodsService.writeData(lampInstance.paramsArduino.getBytes())          
        
         lampInstance.save(flush:true) 
         

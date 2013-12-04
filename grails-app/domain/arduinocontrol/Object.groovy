@@ -47,11 +47,11 @@ class Object {
     static constraints = {
         name(blank: false)
         description()
-        pin(blank: false)
-        paramsArduino(blank: false, unique: true)
-        typeInOrOut(blank: false)
-        typeAnalogOrDigital(blank: false)
+        pin()
+        paramsArduino()
+        typeInOrOut()
+        typeAnalogOrDigital()
         isPwm()
-        valuePwm(range: 0..255)
+        valuePwm()
     }
 }

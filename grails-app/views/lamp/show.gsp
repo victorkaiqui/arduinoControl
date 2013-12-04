@@ -41,11 +41,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${lampInstance?.port}">
+				<g:if test="${lampInstance?.pin}">
 				<li class="fieldcontain">
-					<span id="port-label" class="property-label"><g:message code="lamp.port.label" default="Port" /></span>
+					<span id="pin-label" class="property-label"><g:message code="lamp.pin.label" default="Pin" /></span>
 					
-						<span class="property-value" aria-labelledby="port-label"><g:fieldValue bean="${lampInstance}" field="port"/></span>
+						<span class="property-value" aria-labelledby="pin-label"><g:fieldValue bean="${lampInstance}" field="pin"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${lampInstance?.paramsArduino}">
+				<li class="fieldcontain">
+					<span id="paramsArduino-label" class="property-label"><g:message code="lamp.paramsArduino.label" default="Params Arduino" /></span>
+					
+						<span class="property-value" aria-labelledby="paramsArduino-label"><g:fieldValue bean="${lampInstance}" field="paramsArduino"/></span>
 					
 				</li>
 				</g:if>
@@ -68,11 +77,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${lampInstance?.isPwn}">
+				<g:if test="${lampInstance?.isPwm}">
 				<li class="fieldcontain">
-					<span id="isPwn-label" class="property-label"><g:message code="lamp.isPwn.label" default="Is Pwn" /></span>
+					<span id="isPwm-label" class="property-label"><g:message code="lamp.isPwm.label" default="Is Pwm" /></span>
 					
-						<span class="property-value" aria-labelledby="isPwn-label"><g:formatBoolean boolean="${lampInstance?.isPwn}" /></span>
+						<span class="property-value" aria-labelledby="isPwm-label"><g:formatBoolean boolean="${lampInstance?.isPwm}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${lampInstance?.valuePwm}">
+				<li class="fieldcontain">
+					<span id="valuePwm-label" class="property-label"><g:message code="lamp.valuePwm.label" default="Value Pwm" /></span>
+					
+						<span class="property-value" aria-labelledby="valuePwm-label"><g:fieldValue bean="${lampInstance}" field="valuePwm"/></span>
 					
 				</li>
 				</g:if>

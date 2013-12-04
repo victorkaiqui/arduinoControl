@@ -72,7 +72,7 @@
         <div id="page-body" role="main">
             <div id="controller-list" role="navigation">
                 <h2>Available Controllers:</h2>
-                
+
                 <g:link action="initSerial" controller="config">initSerial</g:link>          
                 <g:link action="closeSerial" controller="config">close</g:link>           
 
