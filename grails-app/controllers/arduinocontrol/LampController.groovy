@@ -7,33 +7,25 @@ class LampController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def methodsService
     
+    private static final char ZERO = '0'
+    private static final char ONE = '1'
     
     def status(Long id) {
         
         Lamp lampInstance = Lamp.get(id)
-        StringBuilder s = new StringBuilder(lampInstance.configArduino);
-        char a = '0'
-        char b = '1'
+        StringBuilder s = new StringBuilder(lampInstance.configArduino);       
         
         if(lampInstance.status){
             lampInstance.status = false
-            s.setCharAt(7,a)
-                       
+            s.setCharAt(7,ZERO)                       
         }else{
             lampInstance.status = true
-            s.setCharAt(7,b)
+            s.setCharAt(7,ONE)
         }
-        
-        // Metodo
-        s.setCharAt(9,a)
-        
-        // Tipo de alteração
-        s.setCharAt(9,a)
+             
         
         lampInstance.configArduino =  s.toString()
         lampInstance.configArduino += "\r\n"
-       
-        print lampInstance.configArduino
         
         methodsService.writeData(lampInstance.configArduino.getBytes())          
        

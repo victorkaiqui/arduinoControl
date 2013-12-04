@@ -2,27 +2,69 @@ package service
 
 import arduinocontrol.Lamp
 import arduinocontrol.Config
-import serial.SerialCommunication
+import gnu.io.CommPortIdentifier
+import gnu.io.NoSuchPortException
+import gnu.io.SerialPort
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 class MethodsService {
 
-    SerialCommunication sc = new SerialCommunication()
+    static OutputStream output
+    static InputStream input
+    static SerialPort port
     
     def initSerial() {
         
         Config c = Config.findByEnabled(true)
         
-        if(c){
-            sc.initSerial(c.port , c.rate.getRate())       
+        if(c){         
+            
+            String portName = c.port
+            int dataRate = c.rate.getRate()
+            
+            try {
+                CommPortIdentifier portId = null
+                try {
+                    portId = CommPortIdentifier.getPortIdentifier(portName)
+                } catch (NoSuchPortException npe) {
+                    npe.printStackTrace()
+                }
+
+                port = (SerialPort) portId.open("Título comunicação serial", dataRate)
+
+                output = port.getOutputStream()
+                input = port.getInputStream()
+
+                port.setSerialPortParams(9600,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE)
+
+            } catch (Exception e) {
+                e.printStackTrace()
+            }
         }
     }
 
     def closeSerial() {       
-        sc.close()
+        try {
+            output.close()
+            input.close()
+            port.removeEventListener()
+            port.close()
+        } catch (IOException e) {
+            e.printStackTrace()
+        }
     }
     
     def writeData(byte[] data){
-        sc.writeData(data)
+        try {
+            output.write(data)         
+        } catch (IOException e) {
+            e.printStackTrace()
+        }
     }
     
     def complete(String s, int i){        
@@ -43,6 +85,9 @@ class MethodsService {
         return newString
     }
     
+    def readData() {
+    }
+    
     def saveParamsgArduino (Lamp lampInstance){
         
         String dice = ""
@@ -51,7 +96,7 @@ class MethodsService {
             //Analog
             String s = "1" 
             s += lampInstance.port
-            dice += complete(s , 3)
+            dice += complete(s , 3)            
         } else if(lampInstance.typeAnalogOrDigital.getType() == 0){
             //Digital
             dice += complete(lampInstance.port , 3)
@@ -71,15 +116,22 @@ class MethodsService {
         //Off
         dice += "0" 
         
-        //metodo
-        dice += "0"
-        
         // Tipo de alteração
-        dice += "1\r\n"       
+        dice += "1"
+        
+        //metodo
+        dice += "00"
+        
+        //grupos
+        dice += "00"
+        
+        //nada ainda
+        dice += "00\r\n"       
+        
         
         lampInstance.configArduino = dice
         
-        sc.writeData(dice.getBytes())   
+        writeData(dice.getBytes())   
     }
 
 }

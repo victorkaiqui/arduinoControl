@@ -7,11 +7,12 @@ class Object {
      
     String name
     String description
-    String port
-    String configArduino
+    Integer pin
+    String paramsArduino
     TypeInOrOut typeInOrOut
     TypeAnalogOrDigital typeAnalogOrDigital
-    Boolean isPwn = false
+    Boolean isPwm = false
+    Integer valuePwm
     
     enum TypeInOrOut{        
         INPUT(0), 
@@ -27,6 +28,7 @@ class Object {
             return type
         }
     }
+    
     enum TypeAnalogOrDigital{
         ANALOG(1),
         DIGITAL(0)
@@ -45,9 +47,11 @@ class Object {
     static constraints = {
         name(blank: false)
         description()
-        port(blank: false, unique: true)
+        pin(blank: false)
+        paramsArduino(blank: false, unique: true)
         typeInOrOut(blank: false)
         typeAnalogOrDigital(blank: false)
-        isPwn(blank: false)
+        isPwm()
+        valuePwm(range: 0..255)
     }
 }
