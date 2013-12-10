@@ -2,12 +2,12 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: configInstance, field: 'port', 'error')} required">
-	<label for="port">
-		<g:message code="config.port.label" default="Port" />
+<div class="fieldcontain ${hasErrors(bean: configInstance, field: 'pin', 'error')} required">
+	<label for="pin">
+		<g:message code="config.pin.label" default="Pin" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="port" required="" value="${configInstance?.port}"/>
+	<g:textField name="pin" required="" value="${configInstance?.pin}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: configInstance, field: 'rate', 'error')} required">

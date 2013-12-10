@@ -23,11 +23,11 @@
 			</g:if>
 			<ol class="property-list config">
 			
-				<g:if test="${configInstance?.port}">
+				<g:if test="${configInstance?.pin}">
 				<li class="fieldcontain">
-					<span id="port-label" class="property-label"><g:message code="config.port.label" default="Port" /></span>
+					<span id="pin-label" class="property-label"><g:message code="config.pin.label" default="Pin" /></span>
 					
-						<span class="property-value" aria-labelledby="port-label"><g:fieldValue bean="${configInstance}" field="port"/></span>
+						<span class="property-value" aria-labelledby="pin-label"><g:fieldValue bean="${configInstance}" field="pin"/></span>
 					
 				</li>
 				</g:if>

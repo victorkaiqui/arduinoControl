@@ -21,7 +21,7 @@ class MethodsService {
         
         if(c){         
             
-            String portName = c.port
+            String portName = c.pin
             int dataRate = c.rate.getRate()
             
             try {
@@ -70,25 +70,7 @@ class MethodsService {
       
     def readData() {
     }
-    
-    def complete(String s, int i){        
-        
-        String newString = ""
-        
-        if(s.length() < i){
-            int aux = i - s.length()            
-            while(aux != 0){
-                newString += "0"
-                aux--
-            }            
-            newString += s            
-        }else if(s.length() == i){
-            return s
-        }
-        
-        return newString
-    }  
-    
+
     def saveParamsgArduino (Lamp lampInstance){
         
         String dice = ""
@@ -134,5 +116,23 @@ class MethodsService {
         
         writeData(dice.getBytes())   
     }
-
+        
+    def complete(String s, int i){        
+        
+        String newString = ""
+        
+        if(s.length() < i){
+            int aux = i - s.length()            
+            while(aux != 0){
+                newString += "0"
+                aux--
+            }            
+            newString += s            
+        }else if(s.length() == i){
+            return s
+        }
+        
+        return newString
+    }  
+    
 }

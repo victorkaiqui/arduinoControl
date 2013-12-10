@@ -49,7 +49,7 @@ class LampController {
 
     def save() {
         def lampInstance = new Lamp(params)
-        methodsService.saveParamsgArduino(lampInstance)
+//        methodsService.saveParamsgArduino(lampInstance)
         
         if (!lampInstance.save(flush: true)) {
             render(view: "create", model: [lampInstance: lampInstance])

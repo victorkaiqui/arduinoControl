@@ -5,7 +5,7 @@ class Config {
     Date dateCreated
     Date lastUpdated
     
-    String port
+    String pin
     DataRate rate
     boolean enabled
     
@@ -29,7 +29,7 @@ class Config {
     }
 
     static constraints = {
-        port(blank: false)
+        pin(blank: false)
         rate(blank: false)
     }
 }

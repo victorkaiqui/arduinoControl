@@ -24,7 +24,7 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="port" title="${message(code: 'config.port.label', default: 'Port')}" />
+						<g:sortableColumn property="pin" title="${message(code: 'config.pin.label', default: 'Pin')}" />
 					
 						<g:sortableColumn property="rate" title="${message(code: 'config.rate.label', default: 'Rate')}" />
 					
@@ -40,7 +40,7 @@
 				<g:each in="${configInstanceList}" status="i" var="configInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${configInstance.id}">${fieldValue(bean: configInstance, field: "port")}</g:link></td>
+						<td><g:link action="show" id="${configInstance.id}">${fieldValue(bean: configInstance, field: "pin")}</g:link></td>
 					
 						<td>${fieldValue(bean: configInstance, field: "rate")}</td>
 					
