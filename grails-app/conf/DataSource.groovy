@@ -3,6 +3,7 @@ dataSource {
     driverClassName = "org.apache.derby.jdbc.ClientDriver"
     username = "sa"
     password = "sa"
+//    logSql = true
 }
 hibernate {
     cache.use_second_level_cache = true

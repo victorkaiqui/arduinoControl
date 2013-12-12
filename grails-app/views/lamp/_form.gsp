@@ -1,74 +1,68 @@
 <%@ page import="arduinocontrol.Lamp" %>
 
 
-
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'name', 'error')} required">
-    <label for="name">
-        <g:message code="lamp.name.label" default="Name" />
-        <span class="required-indicator">*</span>
+<div class="form-group required">
+    <label for="name" class="col-sm-2 control-label">
+        <g:message code="lamp.name.label" default="Name" />*
     </label>
-    <g:textField name="name" required="" value="${lampInstance?.name}"/>
+    <div class="col-sm-10">
+        <g:textField class="form-control" id="name" placeholder="Nome" name="${message(code: 'lamp.name.label', default: 'Name')}" required="" value="${lampInstance?.name}"/>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'description', 'error')} ">
-    <label for="description">
+<div class="form-group">
+    <label for="description" class="col-sm-2 control-label">
         <g:message code="lamp.description.label" default="Description" />
-
     </label>
-    <g:textField name="description" value="${lampInstance?.description}"/>
+    <div class="col-sm-10">
+        <g:textArea class="form-control" rows="3" id="description" placeholder="${message(code: 'lamp.description.label', default: 'Description')}" name="description" value="${lampInstance?.description}"/>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'pin', 'error')}">
-    <label for="pin">
-        <g:message code="lamp.pin.label" default="Pin" />
+<div class="form-group required">
+    <label for="pin" class="col-sm-2 control-label">
+        <g:message code="lamp.pin.label" default="Pin" />*
     </label>
-    <g:field name="pin" type="number" value="${lampInstance.pin}"/>
+    <div class="col-sm-10">
+        <g:field class="form-control" id="pin" placeholder="${message(code: 'lamp.pin.label', default: 'Pin')}" name="pin" type="number" value="${lampInstance.pin}" required=""/>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'paramsArduino', 'error')} ">
-    <label for="paramsArduino">
-        <g:message code="lamp.paramsArduino.label" default="Params Arduino" />
-
+<div class="form-group required">
+    <label for="typeInOrOut" class="col-sm-2 control-label">
+        <g:message code="lamp.typeInOrOut.label" default="Type In Or Out" />*
     </label>
-    <g:textField name="paramsArduino" value="${lampInstance?.paramsArduino}"/>
+    <div class="col-sm-10">        
+        <g:select  class="form-control" id="typeInOrOut" name="typeInOrOut" from="${arduinocontrol.Object$TypeInOrOut?.values()}" keys="${arduinocontrol.Object$TypeInOrOut.values()*.name()}" required="" value="${lampInstance?.typeInOrOut?.name()}"/>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'typeInOrOut', 'error')} required">
-    <label for="typeInOrOut">
-        <g:message code="lamp.typeInOrOut.label" default="Type In Or Out" />
-        <span class="required-indicator">*</span>
+
+<div class="form-group required">
+    <label for="typeAnalogOrDigital" class="col-sm-2 control-label">
+        <g:message code="lamp.typeAnalogOrDigital.label" default="Type Analog Or Digital" />*
     </label>
-    <g:select name="typeInOrOut" from="${arduinocontrol.Object$TypeInOrOut?.values()}" keys="${arduinocontrol.Object$TypeInOrOut.values()*.name()}" required="" value="${lampInstance?.typeInOrOut?.name()}"/>
+    <div class="col-sm-10"> 
+        <g:select class="form-control" id="typeAnalogOrDigital" name="typeAnalogOrDigital" from="${arduinocontrol.Object$TypeAnalogOrDigital?.values()}" keys="${arduinocontrol.Object$TypeAnalogOrDigital.values()*.name()}" required="" value="${lampInstance?.typeAnalogOrDigital?.name()}"/>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'typeAnalogOrDigital', 'error')} required">
-    <label for="typeAnalogOrDigital">
-        <g:message code="lamp.typeAnalogOrDigital.label" default="Type Analog Or Digital" />
-        <span class="required-indicator">*</span>
-    </label>
-    <g:select name="typeAnalogOrDigital" from="${arduinocontrol.Object$TypeAnalogOrDigital?.values()}" keys="${arduinocontrol.Object$TypeAnalogOrDigital.values()*.name()}" required="" value="${lampInstance?.typeAnalogOrDigital?.name()}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'isPwm', 'error')} ">
-    <label for="isPwm">
+<div class="form-group required">
+    <label for="isPwm" class="col-sm-2 control-label">
         <g:message code="lamp.isPwm.label" default="Is Pwm" />
-
     </label>
-    <g:checkBox name="isPwm" value="${lampInstance?.isPwm}" />
+    <div class="col-sm-10"> 
+        <label class="checkbox-inline"> 
+            <g:checkBox type="checkbox" name="isPwm" value="${lampInstance?.isPwm}" />
+        </label>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'valuePwm', 'error')}">
-    <label for="valuePwm">
-        <g:message code="lamp.valuePwm.label" default="Value Pwm" />		
+<div class="form-group required">
+    <label for="group" class="col-sm-2 control-label">
+        <g:message code="lamp.group.label" default="Group" />
     </label>
-    <g:field name="valuePwm" type="number" value="${lampInstance.valuePwm}"/>
+    <div class="col-sm-10"> 
+        <g:select class="form-control" id="group" name="group.id" from="${arduinocontrol.Group.list()}" optionKey="id" optionValue="nameGroup"   value="${lampInstance?.group?.id}" />
+    </div>
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: lampInstance, field: 'status', 'error')} ">
-    <label for="status">
-        <g:message code="lamp.status.label" default="Status" />
-
-    </label>
-    <g:checkBox name="status" value="${lampInstance?.status}" />
-</div>
-

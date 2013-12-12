@@ -104,6 +104,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${lampInstance?.group}">
+				<li class="fieldcontain">
+					<span id="group-label" class="property-label"><g:message code="lamp.group.label" default="Group" /></span>
+					
+						<span class="property-value" aria-labelledby="group-label"><g:link controller="group" action="show" id="${lampInstance?.group?.id}">${lampInstance?.group?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${lampInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="lamp.lastUpdated.label" default="Last Updated" /></span>

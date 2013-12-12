@@ -13,6 +13,7 @@ class Object {
     TypeAnalogOrDigital typeAnalogOrDigital
     Boolean isPwm = false
     Integer valuePwm
+    Group group
     
     enum TypeInOrOut{        
         INPUT(0), 
