@@ -27,7 +27,7 @@ class LampController {
         lampInstance.paramsArduino =  s.toString()
         lampInstance.paramsArduino += "\r\n"
         
-        methodsService.writeData(lampInstance.paramsArduino.getBytes())          
+//        methodsService.writeData(lampInstance.paramsArduino.getBytes())          
        
         lampInstance.save(flush:true) 
         
@@ -49,7 +49,8 @@ class LampController {
 
     def save() {
         def lampInstance = new Lamp(params)
-//        methodsService.saveParamsgArduino(lampInstance)
+        methodsService.saveParamsgArduino(lampInstance)
+//        methodsService.writeData(lampInstance.paramsArduino.getBytes())
         
         if (!lampInstance.save(flush: true)) {
             render(view: "create", model: [lampInstance: lampInstance])
@@ -86,6 +87,7 @@ class LampController {
     def update(Long id, Long version) {
         def lampInstance = Lamp.get(id)
         methodsService.saveParamsgArduino(lampInstance)
+//        methodsService.writeData(lampInstance.paramsArduino.getBytes())
         
         if (!lampInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'lamp.label', default: 'Lamp'), id])

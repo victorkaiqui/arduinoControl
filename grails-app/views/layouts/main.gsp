@@ -13,19 +13,21 @@
             <meta name="author" content="">
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-            <title><g:layoutTitle default="Hey"/></title>
+            <title><g:layoutTitle default="Control"/></title>
 
             <script src="${resource(dir: 'js', file: 'jQuery.js')}"></script>
             <script src="${resource(dir: 'js', file: 'bootstrap.js')}"></script>
+            <script src="${resource(dir: 'js', file: 'offcanvas.js')}"></script>
 
             <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
             <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-theme.css')}" type="text/css">
+            <link rel="stylesheet" href="${resource(dir: 'css', file: 'offcanvas.css')}" type="text/css">
 
             <g:layoutHead/>
             <r:layoutResources />
 
 	</head>
-	<body style="">
+	<body>
 		
             <div class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -53,13 +55,10 @@
                 </div>
             </div>
             
-            <div class="container">
-                <div class="row row-offcanvas row-offcanvas-right">                    
-                        <g:layoutBody/>
-                        <r:layoutResources />                   
-                </div>
+            <div class="container">                                  
+                <g:layoutBody/>
+                <r:layoutResources />  
             </div> 
-            
-           
+                       
 	</body>
 </html>

@@ -112,9 +112,7 @@ class MethodsService {
         dice += "00\r\n"       
         
         
-        lampInstance.paramsArduino = dice
-        
-        writeData(dice.getBytes())   
+        lampInstance.paramsArduino = dice         
     }
         
     def complete(String s, int i){        
