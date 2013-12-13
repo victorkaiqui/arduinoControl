@@ -104,11 +104,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${lampInstance?.group}">
+				<g:if test="${lampInstance?.cluster}">
 				<li class="fieldcontain">
-					<span id="group-label" class="property-label"><g:message code="lamp.group.label" default="Group" /></span>
+					<span id="cluster-label" class="property-label"><g:message code="lamp.cluster.label" default="cluster" /></span>
 					
-						<span class="property-value" aria-labelledby="group-label"><g:link controller="group" action="show" id="${lampInstance?.group?.id}">${lampInstance?.group?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="cluster-label"><g:link controller="cluster" action="show" id="${lampInstance?.cluster?.id}">${lampInstance?.cluster?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

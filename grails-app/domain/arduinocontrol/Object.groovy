@@ -7,13 +7,14 @@ class Object {
      
     String name
     String description
-    Integer pin
     String paramsArduino
-    TypeInOrOut typeInOrOut
-    TypeAnalogOrDigital typeAnalogOrDigital
-    Boolean isPwm = false
+    Integer pin
     Integer valuePwm
-    Group group
+    Boolean isPwm = false
+    Cluster cluster
+    TypeInOrOut typeInOrOut
+    TypeAnalogOrDigital typeAnalogOrDigital 
+    
     
     enum TypeInOrOut{        
         INPUT(0), 
@@ -47,12 +48,12 @@ class Object {
     
     static constraints = {
         name(blank: false)
-        description()
-        pin()
-        paramsArduino()
-        typeInOrOut()
-        typeAnalogOrDigital()
+        description(blank: true , nullable: true)
+        paramsArduino(blank: false)
+        pin(blank: false)
+        valuePwm(blank: true , nullable: true)
         isPwm()
-        valuePwm()
+        typeInOrOut(blank: false)
+        typeAnalogOrDigital(blank: false)
     }
 }
