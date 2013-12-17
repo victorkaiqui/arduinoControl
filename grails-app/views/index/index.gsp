@@ -3,21 +3,10 @@
 <meta name="layout" content="main"/>
 
 <div class="row">
-    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">                
-        <div class="list-group">
-            <a href="#" class="list-group-item active">Link</a>
-            <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">                        
-                <g:link controller="${c.logicalPropertyName}" class="list-group-item">${c.name}</g:link>                        
-            </g:each> 
-        </div>
-    </div> 
-</div>
 
-<div class="row">
-
-    
     <div class="panel-group" id="accordion">
 
+        <!-- Each CLUSTER -->
         <g:each var="c" in="${clusterList}">
 
             <div class="panel panel-info">
@@ -30,6 +19,7 @@
                 <div id="collapseOne${c.id}" class="panel-collapse collapse">
                     <div class="panel-body">  
 
+                        <!-- Each Lamp -->
                         <g:each var="o" in="${objList}">                      
 
                             <div class="col-2 col-sm-6 col-lg-4">
@@ -48,16 +38,14 @@
                                         </h4>
 
                                         <div class="panel-body">
-                                            <p>Pin - ${o.cluster.nameCluster}</p>
+                                            <p>${message(code: 'lamp.pin.label')} - ${o.pin}</p>
+                                            <p>${o.typeAnalogOrDigital}</p>
+                                            <p>${o.typeInOrOut}</p>
 
-                                            <g:if test="${o.status}">
-                                                <button type="button" class="btn btn-small btn-default" disabled="disabled" role="button">Ligada</button>
-                                                <g:link controller="lamp" action="status" id="${o.id}" class="btn btn-small btn-danger" role="button">Desligar</g:link>                                                           
-                                            </g:if>
-                                            <g:else>                              
-                                                <button type="button" class="btn btn-small btn-default" disabled="disabled" role="button">Desligada</button> 
-                                                <g:link controller="lamp" action="status" id="${o.id}" class="btn btn-small btn-success" role="button">Ligar</g:link>    
-                                            </g:else> 
+                                            <div id="update">
+                                                <g:render template="fragmentStatus" model="['o' : o]"/>
+                                            </div>
+
                                         </div>
 
                                     </g:if>  

@@ -46,22 +46,12 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="isPwm" class="col-sm-2 control-label">
-        <g:message code="lamp.isPwm.label" default="Is Pwm" />
-    </label>
-    <div class="col-xs-4"> 
-        <label class="checkbox-inline"> 
-            <g:checkBox type="checkbox" name="isPwm" value="${lampInstance?.isPwm}" />
-        </label>
-    </div>
-</div>
-
 <div class="form-group required">
     <label for="cluster" class="col-sm-2 control-label">
         <g:message code="lamp.cluster.label" default="cluster" />
     </label>
     <div class="col-xs-4"> 
         <g:select class="form-control" id="cluster" name="cluster.id" from="${arduinocontrol.Cluster.list()}" optionKey="id" optionValue="nameCluster"   value="${lampInstance?.cluster?.id}" />
+        <span class="help-block"><g:link controller="cluster" action="create" >${message(code: 'text.newCluter.Label')}</g:link><span>
     </div>
 </div>

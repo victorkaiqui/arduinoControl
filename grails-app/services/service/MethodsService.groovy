@@ -14,7 +14,8 @@ class MethodsService {
     static OutputStream output
     static InputStream input
     static SerialPort port
-    
+
+
     def initSerial() {
         
         Config c = Config.findByEnabled(true)
@@ -47,28 +48,42 @@ class MethodsService {
             }
         }
     }
+    
+    def resetSerial(){
+        
+        if(port){
+            Object o = Object.findAll()        
+            o.each{
+                writeData(it.paramsArduino)
+            }
+        }
+    }
 
-    def closeSerial() {       
-        try {
-            output.close()
-            input.close()
-            port.removeEventListener()
-            port.close()
-        } catch (IOException e) {
-            e.printStackTrace()
+    def closeSerial() { 
+        if(port){ 
+            try {
+                output.close()
+                input.close()
+                port.removeEventListener()
+                port.close()
+            } catch (IOException e) {
+                e.printStackTrace()
+            }
         }
     }
     
-    def writeData(byte[] data){
-        try {
-            output.write(data)         
-        } catch (IOException e) {
-            e.printStackTrace()
-        }
+    def writeData(String data){
+        if(port){
+            try {
+                output.write(data.getBytes())         
+            } catch (IOException e) {
+                e.printStackTrace()
+            }
+        }    
     }
     
-      
     def readData() {
+        if(port){}
     }
 
     def saveParamsgArduino (Lamp lampInstance){
