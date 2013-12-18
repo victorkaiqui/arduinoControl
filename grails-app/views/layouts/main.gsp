@@ -68,7 +68,7 @@
                             <li><g:link action="closeSerial" controller="config"><g:message code="main.showMain.dropdownClose.label"/></g:link></li>
                             <li class="divider"></li>
                             <li class="dropdown-header"><g:message code="main.showMain.dropdownConfig.label"/></li>
-                            <li><a href="#"><g:message code="main.showMain.dropdownPort.label"/></a></li>
+                            <li><g:link action="index" controller="config"><g:message code="main.showMain.dropdownPort.label"/></g:link></li>
                         </ul>
                     </li>
                 </ul>

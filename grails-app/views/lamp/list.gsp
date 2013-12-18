@@ -1,17 +1,7 @@
 
 <%@ page import="arduinocontrol.Lamp" %>
 <!DOCTYPE html>
-
 <meta name="layout" content="main">
-
-
-
-<div id="list-lamp" class="content scaffold-list" role="main">
-    <h1>${message(code: 'lamp.lampList.label')}</h1>
-
-    <g:if test="${flash.message}">
-        <div class="alert alert-info" role="status">${flash.message}</div>
-    </g:if>
 
     <table class="table table-hover">
         <thead>
