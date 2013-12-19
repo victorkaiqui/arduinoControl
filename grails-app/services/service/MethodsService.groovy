@@ -43,18 +43,20 @@ class MethodsService {
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE)
 
+                resetSerial()
+                
             } catch (Exception e) {
                 e.printStackTrace()
             }
         }
     }
     
-    def resetSerial(){
-        
+    def resetSerial(){        
         if(port){
-            Object o = Object.findAll()        
-            o.each{
-                writeData(it.paramsArduino)
+            Object objects = Object.findAll()        
+            objects.each{o ->
+                print o.paramsArduino
+                writeData(o.paramsArduino)
             }
         }
     }
@@ -72,10 +74,13 @@ class MethodsService {
         }
     }
     
-    def writeData(String data){
+    def writeData(String s){
+        
+        byte[] data = s.getBytes()
+        
         if(port){
             try {
-                output.write(data.getBytes())         
+                output.write(data)         
             } catch (IOException e) {
                 e.printStackTrace()
             }
@@ -121,7 +126,7 @@ class MethodsService {
         dice += "00"
         
         //grupos
-        dice += "00"
+        dice += complete(String.valueOf(lampInstance.cluster.id) , 2)
         
         //nada ainda
         dice += "00\r\n"       

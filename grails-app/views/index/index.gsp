@@ -10,6 +10,7 @@
         <g:each var="c" in="${clusterList}">
 
             <div class="panel panel-info">
+
                 <div class="panel-heading"> 
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne${c.id}">
                         <h4 class="panel-title">${c.nameCluster}</h4>
@@ -22,11 +23,11 @@
                         <!-- Each Lamp -->
                         <g:each var="o" in="${objList}">                      
 
-                            <div class="col-2 col-sm-6 col-lg-4">
 
-                                <g:if test="${c.nameCluster == o.cluster.nameCluster}">
 
-                                    <!--If Lamp -->
+                            <g:if test="${c.nameCluster == o.cluster.nameCluster}">
+                                <div class="col-2 col-sm-6 col-lg-4">
+                                                                   <!--If Lamp -->
                                     <g:if test="${o.instanceOf(Lamp)}">
 
                                         <h4>
@@ -42,17 +43,17 @@
                                             <p>${o.typeAnalogOrDigital}</p>
                                             <p>${o.typeInOrOut}</p>
 
-                                            <div id="update">
+                                            <div id="update${o.id}">
                                                 <g:render template="fragmentStatus" model="['o' : o]"/>
                                             </div>
 
                                         </div>
 
-                                    </g:if>  
-                                </g:if>
+                                    </g:if> 
 
-                            </div>
+                                </div>                                
 
+                            </g:if>
                         </g:each>
 
                     </div>   

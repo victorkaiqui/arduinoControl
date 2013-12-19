@@ -6,15 +6,19 @@ import org.springframework.dao.DataIntegrityViolationException
 class ConfigController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    def methodsService
-
-    def initSerial() {
-        methodsService.initSerial()
-        redirect(action: "index")
-    }
-
-    def closeSerial() {       
-        methodsService.closeSerial()
+    
+    def choosePin(Long id){
+        Config configInstance = Config.get(id)
+        def configs = Config.findAll()
+            
+        configs.each{config ->
+           config.enabled = false
+           config.save(flush: true)
+        }     
+        
+        configInstance.enabled = true        
+        configInstance.save(flush: true)        
+        
         redirect(action: "index")
     }
     
@@ -33,6 +37,7 @@ class ConfigController {
 
     def save() {
         def configInstance = new Config(params)
+                
         if (!configInstance.save(flush: true)) {
             render(view: "create", model: [configInstance: configInstance])
             return

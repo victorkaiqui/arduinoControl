@@ -29,13 +29,11 @@
                 <td>${fieldValue(bean: configInstance, field: "rate")}</td>
 
                 <td>
-                    <g:remoteLink controller="lamp" action="statusIndex" id="${configInstance.id}" update="update" class="btn btn-small btn-success" role="button"><g:checkBox name="checkbox" value="${configInstance.enabled}" />
-                    </g:remoteLink>
                     <g:if test="${configInstance.enabled}">                        
-                        <g:link  controller="config" action="choosePin" id="${configInstance.id}" class="btn btn-small btn-danger" role="button">Desligar</g:link>                                                           
+                        <g:link  controller="config" action="choosePin" id="${configInstance.id}" class="btn btn-small btn-success" role="button">${message(code: 'config.configStatusTrue.label')}</g:link>                                                           
                     </g:if>
                     <g:else>
-                        <g:link controller="config" action="choosePin" id="${configInstance.id}" class="btn btn-small btn-success" role="button">Ligar</g:link>    
+                        <g:link controller="config" action="choosePin" id="${configInstance.id}" class="btn btn-small btn-danger" role="button">${message(code: 'config.configStatusFalse.label')}</g:link>    
                     </g:else> 
                 </td>
 

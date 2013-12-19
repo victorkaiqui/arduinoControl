@@ -7,6 +7,7 @@ class Cluster {
      
     String nameCluster
     String descriptionCluster
+    Integer valuePwm
     Boolean isPwm = false
     
     static hasMany = [objects: Object]   
@@ -14,5 +15,6 @@ class Cluster {
     static constraints = {
         nameCluster(blank: false)
         descriptionCluster(blank: true)
+        valuePwm(blank: true , nullable: true)
     }    
 }

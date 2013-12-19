@@ -63,9 +63,9 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><g:message code="main.showMain.dropdownTitle.label"/><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header"><g:message code="main.showMain.dropdownAction.label"/></li>
-                            <li><g:link action="initSerial" controller="config"><g:message code="main.showMain.dropdownInit.label"/></g:link></li>
-                            <li><g:link action="restartSerial" controller="config"><g:message code="main.showMain.dropdownRestart.label"/></g:link></li>
-                            <li><g:link action="closeSerial" controller="config"><g:message code="main.showMain.dropdownClose.label"/></g:link></li>
+                            <li><g:link action="initSerial" controller="index"><g:message code="main.showMain.dropdownInit.label"/></g:link></li>
+                            <li><g:link action="restartSerial" controller="index"><g:message code="main.showMain.dropdownRestart.label"/></g:link></li>
+                            <li><g:link action="closeSerial" controller="index"><g:message code="main.showMain.dropdownClose.label"/></g:link></li>
                             <li class="divider"></li>
                             <li class="dropdown-header"><g:message code="main.showMain.dropdownConfig.label"/></li>
                             <li><g:link action="index" controller="config"><g:message code="main.showMain.dropdownPort.label"/></g:link></li>
